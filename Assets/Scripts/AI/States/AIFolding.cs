@@ -15,9 +15,9 @@ public class AIFolding : AIAction
         Debug.Log(player.Name + " Folded !");
         player.gameObject.GetComponent<UIController>().PokerHand.text = "Folded";
 
-
         player.played += 1;
         player.myTurn = false;
+        player.fold = true;
         player.stopPlaying = true;
 
         player.gameObject.GetComponent<UIController>().TurnButtons(false);

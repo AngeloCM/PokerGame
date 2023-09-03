@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
 {
     [Header("Player Information")]
     public string Name;
-    public int Money = 1000;
+    public int Money;
     public int TotalMoney;
     public int TotalBet;
     public int Bet;
@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public bool check = false;
     public bool raised = false;
     public bool called = false;
+    public bool fold = false;
     public bool stopPlaying = false;
 
     [Header("Game Script")]
@@ -65,11 +66,10 @@ public class Player : MonoBehaviour
 
         played += 1;
         myTurn = false;
+        fold = true;
         stopPlaying = true;
 
         gameObject.GetComponent<UIController>().TurnButtons(false);
-        // Discart hand. 
-        // Stop playing.
     }
 
     public void Check()

@@ -5,8 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    public float resetTimer = 5f;
+    [Header("Game Script")]
     public Game game;
+
+    [Header("Reloading Timer")]
+    public float resetTimer = 5f;
 
     // Start is called before the first frame update
     void Start()

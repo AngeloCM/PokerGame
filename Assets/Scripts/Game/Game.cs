@@ -18,6 +18,7 @@ public class Game : MonoBehaviour
     [SerializeField] public int totalBet;
     [SerializeField] public TMPro.TMP_Text textTotal;
     [SerializeField] public TMPro.TMP_Text Winner;
+    [SerializeField] public TMPro.TMP_Text Flop;
     [SerializeField] public GameObject ReloadPanel;
     private bool showedWinner = false;
 
@@ -88,11 +89,16 @@ public class Game : MonoBehaviour
 
     public void CheckWinner()
     {
-        if (!showedWinner)
+        if (!showedWinner && !CheckPlayerFold())
         {
             Winner.text += " " + CheckPlayersHand()[0].GetComponent<Player>().Name;
             ReloadPanel.SetActive(true);
-
+            showedWinner = true;
+        }
+        else if(!showedWinner)
+        {
+            Winner.text += " " + winner.GetComponent<Player>().Name;
+            ReloadPanel.SetActive(true);
             showedWinner = true;
         }
     }
@@ -130,6 +136,7 @@ public class Game : MonoBehaviour
 
         //Flop on the Table
         flop = true;
+        Flop.text = "FLOP";
     }
 
     public void DealFourthCard()
@@ -144,6 +151,7 @@ public class Game : MonoBehaviour
         }
         //Fourth on the Table
         fourth = true;
+        Flop.text = "FOURTH";
     }
 
     public void DealFifthCard()
@@ -159,6 +167,7 @@ public class Game : MonoBehaviour
 
         //Fifth on the Table
         fifth = true;
+        Flop.text = "FIFTH";
     }
 
     public void ResetTurn()
@@ -226,6 +235,38 @@ public class Game : MonoBehaviour
         }
 
         return everyonePlayed;
+    }
+
+    public bool CheckPlayerFold()
+    {
+        foreach (var player1 in PlayerPanels)
+        {
+            foreach (var player2 in PlayerPanels)
+            {
+                Player p1 = player1.GetComponent<Player>();
+                Player p2 = player2.GetComponent<Player>();
+
+                if (player1.activeSelf && player2.activeSelf && p1 != p2)
+                {
+                    if (p1.fold)
+                    {
+                        winner = p2.gameObject;
+                        return true;
+                    }
+                    else if (p2.fold)
+                    {
+                        winner = p1.gameObject;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     public bool CheckPlayersBet()

@@ -8,8 +8,6 @@ public class AIDeciding : AIAction
 {
     public override AIState Execute(List<string> tableCards, List<string> aiHand, Player player)
     {
-        Debug.Log(player.CanPlayerRaise());
-
         if (player.CanPlayerRaise() && (HasStrongHand(tableCards, aiHand) || HasMediocreHand(tableCards, aiHand)))
         {
             return AIState.Raising;
