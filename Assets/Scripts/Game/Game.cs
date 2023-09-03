@@ -290,6 +290,7 @@ public class Game : MonoBehaviour
         else
         {
             isTherePlayersPlaying = false;
+            finished = true;
         }
 
         return isTherePlayersPlaying;
